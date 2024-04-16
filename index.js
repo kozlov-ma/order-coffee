@@ -35,6 +35,8 @@ function newBeverageForm() {
                 const shadowRoot = this.attachShadow({mode: 'open'});
                 shadowRoot.appendChild(template.cloneNode(true));
 
+                this.jsonData = {};
+
                 const beverageCount = shadowRoot.querySelector('.beverage-count');
                 beverageCount.textContent = `Напиток №${this.getAttribute('beverage-number') || ''}`;
 
@@ -73,17 +75,18 @@ function newBeverageForm() {
 function handleRemove(button) {
     const fieldset = button.closest('.beverage');
     fieldset.remove();
+    console.log(this.jsonData)
 }
 
 function handleChangeSelect(select) {
     const fieldset = select.closest('.beverage');
-    const jsonData = {
+    this.jsonData = {
         beverage: select.value,
         milk: fieldset.querySelector('input[name="milk"]:checked').value,
         options: Array.from(fieldset.querySelectorAll('input[name="options"]:checked')).map(option => option.value),
         additional: textValue(fieldset.querySelector('#user-input').textContent)
     };
-    console.log(jsonData);
+    console.log(this.jsonData);
 }
 
 function textValue(s) {
