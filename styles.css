@@ -1,33 +1,3 @@
-.beverage {
-    border: 1px solid #eee;
-    margin: 15px 0;
-    padding: 15px;
-}
-
-.beverage-count {
-    margin: 0 0 15px;
-}
-
-.field {
-    display: block;
-    margin-bottom: 10px;
-}
-
-.label-text {
-    display: inline-block;
-    width: 80px;
-}
-
-.checkbox-label {
-    margin-bottom: 5px;
-    display: inline-block;
-}
-
-.checkbox-field {
-    margin: 5px 0;
-    display: block;
-}
-
 .add-button {
     border: none;
     background: none;
