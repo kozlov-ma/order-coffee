@@ -20,8 +20,7 @@ function newBeverageForm() {
         event.preventDefault()
         modal.style.display = 'block';
         let drinks = " напитков"
-        if (Math.floor(count / 10) != 1)
-        {
+        if (Math.floor(count / 10) != 1) {
             if (count % 10 === 1) drinks = " напиток";
             if (count % 10 === 2 || count % 10 === 3 || count % 10 === 4) drinks = " напитка";
         }
@@ -31,6 +30,9 @@ function newBeverageForm() {
         ordered.innerHTML = orderedDrinks;
 
         let tbody = modal.querySelector("tbody");
+        for (let c of tbody.children) {
+            tbody.removeChild(c);
+        }
         const ru = {"usual": "обычное", "no-fat": "обезжиренное", "soy": "соевое", "coconut": "кокосовое"};
         for (let bc of document.querySelectorAll("beverage-component")) {
             let fieldset = bc.shadowRoot.querySelector("fieldset");
@@ -54,7 +56,7 @@ function newBeverageForm() {
             });
 
             let td4 = document.createElement("td");
-            td4.innerText = fieldset.querySelector("#user-input").textContent;
+            td4.innerHTML = textValue(fieldset.querySelector("textarea").value);
 
             tr.appendChild(td1);
             tr.appendChild(td2);
@@ -108,4 +110,9 @@ function newBeverageForm() {
 function handleRemove(button) {
     const fieldset = button.closest('.beverage');
     fieldset.remove();
+}
+
+function textValue(s) {
+    const keywords = ['срочно', 'быстрее', 'побыстрее', 'скорее', 'поскорее', 'очень нужно'];
+    return s.replace(new RegExp(keywords.join("|"), "g"), match => `<b>${match}</b>`);
 }
