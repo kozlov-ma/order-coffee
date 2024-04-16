@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Заказ кофе</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
+    <link rel="stylesheet" href="styles.css"/>
+</head>
 
 <template id="beverage-template">
     <style>
@@ -50,11 +50,11 @@
 
     <fieldset class="beverage">
         <h4 class="beverage-count"></h4>
-        <button class="remove-button">☦️</button>
+        <button class="remove-button" onclick="handleRemove(this)">☦️</button>
 
         <label class="field">
             <span class="label-text">Я буду</span>
-            <select>
+            <select id="beverage-select">
                 <option value="espresso">Эспрессо</option>
                 <option value="capuccino" selected>Капучино</option>
                 <option value="cacao">Какао</option>
@@ -100,16 +100,19 @@
                 <span>корицу</span>
             </label>
         </div>
+
+        <textarea id="user-input" rows="4" cols="50"
+                  placeholder="И ещё вот что"></textarea>
     </fieldset>
 </template>
 
 <body>
-  <div class="modal">
+<div class="modal">
     <div class="modal-content">
-      <span class="close">&times;</span>
-      <p>Содержимое модального окна</p>
+        <span class="close">&times;</span>
+        <p>Содержимое модального окна</p>
     </div>
-  </div>
+</div>
 <form>
     <div id="beverages">
         <beverage-component beverage-number="1"></beverage-component>
@@ -119,7 +122,7 @@
         <button type="button" class="add-button" onclick="newBeverageForm()">+ Добавить напиток</button>
     </div>
     <div style="margin-top: 30px">
-        <button type="submit" class="submit-button", id="submit">Готово</button>
+        <button type="submit" class="submit-button" id="submit">Готово</button>
     </div>
 </form>
 
