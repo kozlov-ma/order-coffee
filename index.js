@@ -19,9 +19,42 @@ function newBeverageForm() {
     openModalBtn.addEventListener('click', function (event) {
         event.preventDefault()
         modal.style.display = 'block';
-        var orderedDrinks = "Вы заказали " + count + " напитков";
-        var ordered = document.getElementById("ordered");
+        let orderedDrinks = "Вы заказали " + count + " напитков";
+        let ordered = document.getElementById("ordered");
         ordered.innerHTML = orderedDrinks;
+
+        let tbody = modal.querySelector("tbody");
+        const ru = {"usual": "обычное", "no-fat": "обезжиренное", "soy": "соевое", "coconut": "кокосовое"};
+        for (let bc of document.querySelectorAll("beverage-component")) {
+            let fieldset = bc.shadowRoot.querySelector("fieldset");
+            let tr = document.createElement("tr");
+            let td1 = document.createElement("td");
+            td1.innerText = fieldset.getElementsByTagName("select")[0].selectedOptions[0].textContent;
+            let td2 = document.createElement("td");
+            fieldset.querySelectorAll('input[type="radio"]').forEach((x) => {
+                if (x.checked) {
+                    td2.innerText = ru[x.value];
+                }
+            });
+            let td3 = document.createElement("td");
+            fieldset.querySelectorAll('input[type="checkbox"]').forEach((x) => {
+                if (x.checked) {
+                    if (td3.innerText.length !== 0) {
+                        td3.innerText += ", ";
+                    }
+                    td3.innerText += x.parentElement.querySelector('span').textContent;
+                }
+            });
+
+            let td4 = document.createElement("td");
+            td4.innerText = fieldset.querySelector("#user-input").textContent;
+
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
+            tbody.appendChild(tr);
+        }
     });
 
     closeModalBtn.addEventListener('click', function () {
@@ -37,8 +70,6 @@ function newBeverageForm() {
                 const shadowRoot = this.attachShadow({mode: 'open'});
                 shadowRoot.appendChild(template.cloneNode(true));
 
-                this.jsonData = {};
-
                 const beverageCount = shadowRoot.querySelector('.beverage-count');
                 beverageCount.textContent = `Напиток №${this.getAttribute('beverage-number') || ''}`;
 
@@ -49,12 +80,6 @@ function newBeverageForm() {
 
                     count--;
                     this.remove();
-                });
-
-                shadowRoot.querySelectorAll('.beverage select, .beverage input, .beverage textarea').forEach(element => {
-                    element.addEventListener('input', () => {
-                        handleChangeSelect(element);
-                    });
                 });
             }
 
@@ -71,27 +96,9 @@ function newBeverageForm() {
             }
         }
     )
-    ;
 })();
 
 function handleRemove(button) {
     const fieldset = button.closest('.beverage');
     fieldset.remove();
-    console.log(this.jsonData)
-}
-
-function handleChangeSelect(select) {
-    const fieldset = select.closest('.beverage');
-    this.jsonData = {
-        beverage: select.value,
-        milk: fieldset.querySelector('input[name="milk"]:checked').value,
-        options: Array.from(fieldset.querySelectorAll('input[name="options"]:checked')).map(option => option.value),
-        additional: textValue(fieldset.querySelector('#user-input').textContent)
-    };
-    console.log(this.jsonData);
-}
-
-function textValue(s) {
-    const keywords = ['срочно', 'быстрее', 'побыстрее', 'скорее', 'поскорее', 'очень нужно'];
-    return s.replace(new RegExp(keywords.join("|"), "g"), match => `<b>${match}</b>`);
 }
