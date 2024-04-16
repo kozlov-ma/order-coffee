@@ -19,10 +19,12 @@ function newBeverageForm() {
     openModalBtn.addEventListener('click', function (event) {
         event.preventDefault()
         modal.style.display = 'block';
+        var orderedDrinks = "Вы заказали " + count + " напитков";
+        var ordered = document.getElementById("ordered");
+        ordered.innerHTML = orderedDrinks;
     });
 
     closeModalBtn.addEventListener('click', function () {
-        console.log('asd');
         modal.style.display = 'none';
     });
 })();
