@@ -107,11 +107,6 @@ function newBeverageForm() {
     )
 })();
 
-function handleRemove(button) {
-    const fieldset = button.closest('.beverage');
-    fieldset.remove();
-}
-
 function textValue(s) {
     const keywords = ['срочно', 'быстрее', 'побыстрее', 'скорее', 'поскорее', 'очень нужно'];
     return s.replace(new RegExp(keywords.join("|"), "g"), match => `<b>${match}</b>`);
