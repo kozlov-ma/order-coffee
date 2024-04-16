@@ -1,16 +1,3 @@
-const openModalBtn = document.getElementById('submit');
-const modal = document.querySelector('.modal');
-const closeModalBtn = document.querySelector('.close');
-
-openModalBtn.addEventListener('click', function(event) {
-event.preventDefault()
-    modal.style.display = 'block';
-});
-
-closeModalBtn.addEventListener('click', function() {
-    console.log('asd');
-  modal.style.display = 'none';
-});
 const beverages = document.querySelector("#beverages");
 
 let created = 1;
@@ -23,6 +10,22 @@ function newBeverageForm() {
     comp.setAttribute("beverage-number", created)
     beverages.appendChild(comp);
 }
+
+(function () {
+    const openModalBtn = document.getElementById('submit');
+    const modal = document.querySelector('.modal');
+    const closeModalBtn = document.querySelector('.close');
+
+    openModalBtn.addEventListener('click', function (event) {
+        event.preventDefault()
+        modal.style.display = 'block';
+    });
+
+    closeModalBtn.addEventListener('click', function () {
+        console.log('asd');
+        modal.style.display = 'none';
+    });
+})();
 
 (function () {
     customElements.define('beverage-component', class extends HTMLElement {
