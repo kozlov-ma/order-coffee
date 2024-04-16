@@ -19,7 +19,14 @@ function newBeverageForm() {
     openModalBtn.addEventListener('click', function (event) {
         event.preventDefault()
         modal.style.display = 'block';
-        let orderedDrinks = "Вы заказали " + count + " напитков";
+        let drinks = " напитков"
+        if (Math.floor(count / 10) != 1)
+        {
+            if (count % 10 === 1) drinks = " напиток";
+            if (count % 10 === 2 || count % 10 === 3 || count % 10 === 4) drinks = " напитка";
+        }
+
+        let orderedDrinks = "Вы заказали " + count + drinks;
         let ordered = document.getElementById("ordered");
         ordered.innerHTML = orderedDrinks;
 
