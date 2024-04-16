@@ -20,7 +20,7 @@ function newBeverageForm() {
         event.preventDefault()
         modal.style.display = 'block';
         let drinks = " напитков"
-        if (Math.floor(count / 10) != 1) {
+        if (Math.floor(count / 10) !== 1) {
             if (count % 10 === 1) drinks = " напиток";
             if (count % 10 === 2 || count % 10 === 3 || count % 10 === 4) drinks = " напитка";
         }
@@ -29,10 +29,12 @@ function newBeverageForm() {
         let ordered = document.getElementById("ordered");
         ordered.innerHTML = orderedDrinks;
 
-        let tbody = modal.querySelector("tbody");
-        for (let c of tbody.children) {
-            tbody.removeChild(c);
-        }
+        let table = modal.querySelector("table");
+        table.removeChild(table.querySelector("tbody"))
+
+        let tbody = document.createElement("tbody");
+        table.appendChild(tbody)
+
         const ru = {"usual": "обычное", "no-fat": "обезжиренное", "soy": "соевое", "coconut": "кокосовое"};
         for (let bc of document.querySelectorAll("beverage-component")) {
             let fieldset = bc.shadowRoot.querySelector("fieldset");
@@ -62,6 +64,7 @@ function newBeverageForm() {
             tr.appendChild(td2);
             tr.appendChild(td3);
             tr.appendChild(td4);
+
             tbody.appendChild(tr);
         }
     });
@@ -88,6 +91,7 @@ function newBeverageForm() {
                         return;
 
                     count--;
+                    console.log(this);
                     this.remove();
                 });
             }
